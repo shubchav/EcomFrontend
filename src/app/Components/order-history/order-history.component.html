@@ -1,0 +1,75 @@
+<button type="button" class="btn btn-link" routerLink="/customer">Home</button>
+<h2 style="text-align:left"><i><b> Order History</b></i>    </h2>
+<!-- <table class="table table-striped ">
+    <thead>
+        <tr>
+            <th scope="col">Order Id</th>
+            <th scope="col">Invoice Number</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Delivery Date</th>
+            <th scope="col">Product Image</th>
+            <th scope="col">Product Name</th>
+
+            <th scope="col"> Quantity</th>
+
+            <th scope="col"> Price</th>
+
+            <th scope="col">Cancel</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of OrderDetailList    
+          
+    let i = index">
+
+
+            <td># {{data?.orderId}}</td>
+            <td>{{data?.invoiceNumber}}</td>
+            <td>{{data?.invoiceDate | date}}</td>
+            <td>{{data?.deliveryDate | date}}</td>
+            <td> <img class="card-img-top" src="./../../../assets/images/{{data.productImage.substring(50,12)}}"
+                    width="10" height="70" alt="Card image cap"></td>
+            <td>{{data?.productName }}</td>
+
+            <td>{{data?.qty}}</td>
+            <td>{{data?.price}}</td>
+
+            <td> <button type="button" class="btn btn-danger" (click)="deleteHistoryOrder(data.orderId) "> <i
+                        class="fa fa-trash-o" aria-hidden="true"></i> Cancel</button>
+            </td>
+
+        </tr>
+
+
+    </tbody>
+</table> -->
+
+<div *ngFor="let data of OrderDetailList    
+          
+         let i = index">
+<div class="card mb-3-center" style="max-width: 1350px;" style="max-height: 265px;">
+    <div class="row g-0">
+        
+            <div class="col-md-2">
+                <img class="card-img-top" src="./../../../assets/images/{{data.productImage.substring(50,12)}}"
+                    class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><b>OrderId</b> #{{data?.orderId}}</h5>
+                    <p class="card-text"> <b>InvoiceId : </b>{{data?.invoiceNumber}}</p>
+                    <p class="card-text"><b>Name : </b>{{data?.productName }}</p>
+                    <p class="card-text"> <b>Price :</b> {{data?.price}} ,<b>Qty:</b> {{data?.qty}}</p>
+                    <p class="card-text"> </p>
+                    <p class="card-text"> <b>Delivery Date :</b> {{data?.deliveryDate | date}}</p>
+
+                    
+                    <span class="move"><button type="button" class="btn btn-danger" (click)="deleteHistoryOrder(data.orderId) "> <i
+                        class="fa fa-trash-o" aria-hidden="true"></i> Cancel</button></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

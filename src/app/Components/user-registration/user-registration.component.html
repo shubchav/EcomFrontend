@@ -1,0 +1,266 @@
+<section class="vh-100 bg-image"
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <div class="mask d-flex align-items-center h-300 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-300">
+        <div class="col-12 col-md-9 col-lg-8 col-xl-60">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">User Registration</h2>
+              <form #registrationForm="ngForm" (ngSubmit)="onSubmit(registrationForm.value)"
+                class="row g-2 needs-validation" novalidate>
+                <div class="form-row">
+                  <div class="form-group col-lg-10">
+                    <label or="validationCustom01" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="validationCustom01" required pattern="[a-zA-z]*"
+                      #fname="ngModel" maxlength="20" [ngModel] placeholder="First Name" name="firstname">
+                    <div class="invalid-feedback">
+                      Please Enter a First Name.
+                    </div>
+                    <div *ngIf="fname.invalid && (fname.dirty || fname.touched )" class="alert alert-danger">
+                      <div [hidden]="!fname.hasError('required')"> This is required field</div>
+                      <div [hidden]="!fname.hasError('maxlength')">Maximum required 20 charecter
+                      </div>
+                      <div [hidden]="!fname.hasError('pattern')">Only alphabets allowed</div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">Last Name</label>
+                      <input type="text" class="form-control" required #lname="ngModel"
+                          pattern="[a-zA-z]*" maxlength="20" [ngModel] placeholder="Last Name"
+                          name="lastName">
+                          <div class="invalid-feedback">
+                            Please Enter a Last  Name.
+                          </div>
+                      <div *ngIf="lname.invalid && (lname.dirty || lname.touched )"
+                          class="alert alert-danger">
+                          <div [hidden]="!lname.hasError('required')"> This is required field</div>
+
+                          <div [hidden]="!lname.hasError('maxlength')">Maximum required 20 charecter
+                          </div>
+
+                          <div [hidden]="!lname.hasError('pattern')">Only alphabets allowed</div>
+                      </div>
+                  </div>
+
+              </div>
+
+
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">Email Id</label>
+                      <input type="email" class="form-control" required #email="ngModel" [ngModel]
+                          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email Id"
+                          name="email">
+                          <div class="invalid-feedback">
+                            Please Enter a Email.
+                          </div>
+                      <div *ngIf="email.invalid && (email.dirty || email.touched )"
+                          class="alert alert-danger">
+                          <div [hidden]="!email.hasError('required')"> Email is required</div>
+                          <!-- <br /><span *ngIf="email.invalid && email.untouched"></span><br /> -->
+                          <div [hidden]="!email.hasError('pattern')">Email is not valid</div>
+
+                      </div>
+                  </div>
+
+              </div>
+
+              <!-- User type -->
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">User Type</label>
+                      <select class="form-control"  required #utype="ngModel" [ngModel]
+                          placeholder="User Type" name="userType">
+                          <div class="invalid-feedback">
+                            Please Enter a User type..
+                          </div>
+                          <option selected disabled value="" >Select User Type</option>
+                          <option>Admin</option>
+                          <option>
+                              Customer
+                          </option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please Select User Type.
+                      </div>
+                      <!-- <div [hidden]="!utype.hasError('required')" > This is required field</div> -->
+
+
+                  </div>
+
+              </div>
+
+              <!-- <div class="d-grid">
+<select class="form-control" required #utype="ngModel" [ngModel] placeholder="User Type" name="userType">User
+Type
+<option value="">Admin</option>
+<option>
+Customer
+</option>
+</select>
+</div> -->
+
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">Date Of Birth</label>
+                      <input type="date" class="form-control"  #dob="ngModel" required [ngModel]
+                          placeholder="Date Of Birth" max="2022-11-24" name="dob">
+                          <div class="invalid-feedback">
+                            Please Enter a DOB.
+                          </div>
+                      <div *ngIf="dob.invalid && (dob.dirty || dob.touched )"
+                          class="alert alert-danger">
+
+                          <div [hidden]="!dob.hasError('required')"> Date of birth is required</div>
+                      </div>
+                  </div>
+
+              </div>
+              
+              <!-- mobile number  -->
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">Mobile Number</label>
+                      <input type="text" class="form-control" #mobileNumber="ngModel" maxlength="10"
+                          pattern="^[7-9]{1}[0-9]{9}$" required [ngModel] placeholder="Mobile Number" 
+                          name="mobileNumber">
+                          <div class="invalid-feedback">
+                            Please Enter a Mobile Number.
+                          </div>
+                      <div *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched )"
+                          class="alert alert-danger">
+                          <div [hidden]="!mobileNumber.hasError('required')"> Mobile Number is
+                              required</div>
+
+                          <div [hidden]="!mobileNumber.hasError('maxlength')"> maximum length is 10
+                          </div>
+                          <div [hidden]="!mobileNumber.hasError('pattern')">First 3 no. can't be in betwween 0 to 5
+                          </div>
+                          
+                      </div>
+                  </div>
+
+              </div>
+              <!-- address field -->
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">Address</label>
+                      <input type="text" class="form-control" #address="ngModel" required [ngModel]
+                          placeholder="Address" name="address">
+                          <div class="invalid-feedback">
+                            Please Enter Address.
+                          </div>
+                      <div *ngIf="address.invalid && (address.dirty || address.touched)"
+                          class="alert alert-danger">
+
+                          <div [hidden]="!address.hasError('required')"> Address is required</div>
+                      </div>
+                  </div>
+
+              </div>
+              <!-- country field -->
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">Country</label>
+
+
+                      <select class="form-control" type="text" #country="ngModel" [ngModel]
+                          name="country" (change)="getStatesbycID()" [(ngModel)]="selectedValue"
+                          required>
+                          <option *ngFor="let data of allCountries" value="{{data.countryId}}">
+                              {{data.countryName}}</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please select country.
+                      </div>
+                      
+                      <!-- <input type="text" class="form-control" #country="ngModel" required [ngModel] placeholder="Country"
+name="country"> -->
+                      <!-- <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
+
+<div [hidden]="!country.hasError('required')"> Country is required</div>
+</div> -->
+                  </div>
+
+              </div>
+
+              <!-- state field -->
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">State</label>
+
+                      <select class="form-control" type="text" [ngModel] #state="ngModel" name="state"
+                          required >
+                          <option *ngFor="let data of statedata" value="{{data.stateName}}">
+                              {{data.stateName}}</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please selecta State.
+                      </div>
+
+
+                      <!-- <input type="text" class="form-control" #state="ngModel" required [ngModel] placeholder="State"
+name="state">
+<div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">
+
+<div [hidden]="!state.hasError('required')"> State is required</div>
+</div> -->
+                  </div>
+
+              </div>
+              <!-- zipcode field -->
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">Zipcode</label>
+                      <input type="text" class="form-control" #zipcode="ngModel" pattern="^[0-9]{6}$"
+                          minlength="6" maxlength="6" required [ngModel] placeholder="Zipcode"
+                          name="zipcode">
+                          <div class="invalid-feedback">
+                            Please Enter a Zipcode.
+                          </div>
+                      <div *ngIf="zipcode.invalid && (zipcode.dirty || zipcode.touched)"
+                          class="alert alert-danger">
+
+                          <div [hidden]="!zipcode.hasError('required')"> Zipcode is required</div>
+                          <div [hidden]="!zipcode.hasError('pattern')"> Zipcode only contain digit.</div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <!-- image field -->
+              <div class="form-row">
+                  <div class="form-group col-lg-10">
+                      <label for="inputEmail4">Profile Image</label>
+                      <input type="file" class="form-control" #profileImage="ngModel" required
+                          [ngModel] placeholder="profileImage" name="profileImage">
+                          <div class="invalid-feedback">
+                            Please select a Profile Image.
+                          </div>
+                      <!-- <div [hidden]="!profileImage.hasError('required')"> Profile Image is required</div> -->
+
+                  </div>
+
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary" >Sign Up</button><br>
+              <button type="reset" class="btn btn-light">Reset</button>
+              <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
+                      routerLink="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+
+          </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div>

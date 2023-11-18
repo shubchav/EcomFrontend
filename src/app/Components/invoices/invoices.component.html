@@ -1,0 +1,173 @@
+<button type="button" (click)="getMSalesDByInvoiceID()">Gnerated Invoice</button>
+<button type="button" class="btn btn-link" routerLink="/customer">Home</button>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css"/>
+
+<!-- <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <h1> <b> Invoices Details: </b></h1>
+
+                    <div class="card-body">
+                       
+
+                                <div class="tab-content ml-1" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                        
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Order Id</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{MsaleDataByUId.invoiceId}}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Invoice Date</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{MsaleDataByUId.invoiceDate | date}}
+                                                
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        
+                                        
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Delivery Address</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{MsaleDataByUId.deliveryAddress}},
+                                                {{MsaleDataByUId.deliveryState}},
+                                                {{MsaleDataByUId.deliveryZipcode}}
+
+                                                
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Total Price</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{MsaleDataByUId.subtotal | currency:'INR':'symbol' }} --Paid By Debit Card
+                                                
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Deliver Status</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                Your order deliver Within 10 days from Invoice date {{MsaleDataByUId.invoiceDate | date}}
+                                                
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div> -->
+   <!-- table for invoices  -->
+
+<!-- Invoices Id -->
+   <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h1> <b> Invoices Details: </b></h1>
+
+                <div class="card-body">
+                   
+
+                            <div class="tab-content ml-1" id="myTabContent">
+                                <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                    
+
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Order Id</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{MsaleDataByInvoice.invoiceId}}
+                                        </div>
+                                    </div>
+                                    <hr />
+
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Invoice Date</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{MsaleDataByInvoice.invoiceDate | date}}
+                                            
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Delivery Address</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{MsaleDataByInvoice.deliveryAddress}},
+                                            {{MsaleDataByInvoice.deliveryState}},
+                                            {{MsaleDataByInvoice.deliveryZipcode}}
+
+                                            
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Total Price</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{MsaleDataByInvoice.subtotal | currency:'INR':'symbol' }} --Paid By Debit Card
+                                            
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Deliver Status</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            Your order deliver Within 10 days from Invoice date {{MsaleDataByInvoice.invoiceDate | date}}
+                                            
+                                        </div>
+                                    </div>
+                                    <hr />
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>

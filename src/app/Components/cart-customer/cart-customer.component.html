@@ -1,0 +1,185 @@
+<button type="button" class="btn btn-link" routerLink="/customer">Home</button>
+<!-- <p>cart-customer works!</p>
+<button (click)="getByUserIdCart()">click</button>
+<button (click)="getMasterdetailbyUserId()">clickmaster</button> -->
+
+
+
+<h2 style="text-align:left">My Cart</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <!-- <th scope="col">cartd id</th> -->
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Image </th>
+            <th scope="col">Category</th>
+            <th scope="col">Brand</th>
+            <th scope="col"> Price</th>
+            <th scope="col"> </th>
+            <th scope="col"> Qty</th>
+            <th scope="col"> </th>
+            <th scope="col">Remove</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let data of cartDetailListProduct    
+          
+    let i = index">
+
+            <td class="hidden">{{data?.cartdetailId}}</td>
+
+            <td class="hidden">{{data?.productId}}</td>
+            <td>{{data?.productName}}</td>
+            <td> <img class="card-img-top" src="./../../../assets/images/{{data.productImage.substring(50,12)}}"
+                    width="50" height="50" alt="Card image cap"></td>
+            <td>{{data?.category}}</td>
+            <td>{{data?.brand }}</td>
+            <td>{{data?.sellingPrice}}</td>
+
+
+            <td>
+                <button type="button" (click)="decreaseQty(data?.cartdetailId) " style="width:25px"><i
+                        class="fa fa-minus" aria-hidden="true"></i></button>
+                <!-- <input type="text" class="sm" style="width:25px;" ngModel [(ngModel)]name="quantity" placeholder="Qty"/> -->
+            </td>
+            <td>{{data?.Qnt}}</td>
+            <td>
+                <button type="button" (click)="increaseQty(data?.cartdetailId) " style="width:25px"><i
+                        class="fa fa-plus" aria-hidden="true"></i></button>
+            </td>
+
+
+            <td> <button type="button" class="btn btn-danger"
+                    (click)="deleteProductInCartDetails(data?.productId) ">  <i class="fa fa-trash-o" aria-hidden="true"></i> Remove</button>
+            </td>
+            <!-- <td> <button type="button" class="btn btn-danger"
+                (click)="deleteProductInCartDetailsByCartDID(data?.cartdetailId) ">  <i class="fa fa-trash-o" aria-hidden="true"></i> Remove</button>
+        </td> -->
+            <!-- </ng-container> -->
+        </tr>
+
+
+    </tbody>
+</table>
+<!-- <div class="d-flex justify-content-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </div> -->
+
+<!-- <button type="button" (click)="getbyProductId(1)">product</button> -->
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enter Card Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js"></script>
+                <div class="padding">
+                    <div class="row">
+                        <div class="container-fluid d-flex justify-content-center">
+                            <div class="col-lg-10 col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <span>CREDIT/DEBIT CARD PAYMENT</span>
+
+                                            </div>
+
+                                            <div class="col-md-6 text-right" style="margin-top: -5px;">
+
+                                                <img src="https://img.icons8.com/color/36/000000/visa.png">
+                                                <img src="https://img.icons8.com/color/36/000000/mastercard.png">
+                                                <img src="https://img.icons8.com/color/36/000000/amex.png">
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body" style="height: 350px">
+                                        <div class="form-group">
+                                            <label for="cc-number" class="control-label">CARD NUMBER</label>
+                                            <input id="cc-number" type="tel" class="input-lg form-control cc-number"
+                                               name="cardNumber" autocomplete="cc-number"
+                                                [(ngModel)]="cardNumber" maxlength="16" pattern="^[0-9]{16}$"
+                                                placeholder="&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;"
+                                                required>
+                                           
+                                        </div>
+
+
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="cc-exp" class="control-label">CARD EXPIRY</label>
+                                                    <input id="cc-exp" type="tel" name="expiryDate" maxlength="5"
+                                                        class="input-lg form-control cc-exp" [(ngModel)]="cardExpiry"
+                                                        autocomplete="cc-exp" placeholder="&bull;&bull; / &bull;&bull;"
+                                                        required>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="cc-cvc" class="control-label">CARD CVC</label>
+                                                    <input id="cc-cvc" type="tel" name="cvv" maxlength="3" minlength="3"
+                                                        pattern="^[0-9]{3}$" class="input-lg form-control cc-cvc"
+                                                        [(ngModel)]="cardCvv" autocomplete="off"
+                                                        placeholder="&bull;&bull;&bull;&bull;" required>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+
+                                        <button type="button" class="btn btn-success btn-lg form-control"
+                                            style="font-size: .8rem;" (click)="verifyPaymentDebitcard()"> Make a
+                                            Payment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h3>Your Total: {{MsaleDataByUId.subtotal}}</h3>
+<button *ngIf="condition()" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" [disabled]="subtotalIsZero">
+    Buy Now
+</button>

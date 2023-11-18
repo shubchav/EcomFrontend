@@ -1,0 +1,21 @@
+<!-- <section class="vh-100 bg-image"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');"> -->
+<div class="content">
+<p class="h2" >Otp Verification</p>
+
+
+<form #otpForm="ngForm" (ngSubmit)="OnOtpSubmit()" class=" needs-validation" novalidate>
+    <div class="form-group col-md-10">
+      <label >Enter Your Otp</label>
+      <input type="text" class="form-control" [(ngModel)]="otp"  id="username" name="otp"  placeholder=" Enter otp" required>  
+    </div>
+    <div class="invalid-feedback">
+      Please Enter Otp
+    </div>
+    <button type="submit" class="btn btn-primary">Conform Otp</button>
+
+  </form>
+
+
+</div>
+<!-- </section> -->

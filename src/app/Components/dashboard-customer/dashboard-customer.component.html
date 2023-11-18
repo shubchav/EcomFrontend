@@ -1,0 +1,407 @@
+<!-- <a  routerLink="/customerCart">Go to Cart</a> -->
+
+
+  <!-- new nav bar -->
+  <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <a class="navbar-brand" style="color: whitesmoke" >
+      <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/logo_white.png"  width="30" height="30" alt="logo">
+      ShoppingApp
+    </a>
+    <span style="color: whitesmoke"> <b> Hey! {{getUserbyid.firstname}} {{getUserbyid.lastname}}</b></span>
+    
+    <a class="nav-link "  style="color: whitesmoke" (click)="cartPage()" > My Cart <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></a>
+    <a class="nav-link " routerLink="/orderHistory" style="color: whitesmoke">My Orders <i class="fa fa-history fa-lg" aria-hidden="true"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-list-4">
+      <ul class="navbar-nav">
+          <li class="nav-item">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="./../../../assets/images/{{getUserbyid.profileImage.substring(50,12)}}" width="40" height="40" class="rounded-circle">
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <a class="dropdown-item" href="#">Change Password</a> -->
+            <button class="dropdown-item" type="button" class="btn btn-light" data-toggle="modal" data-target="#centralModalSm">
+                Change Password
+              </button>
+              <button type="button"  class="dropdown-item"  class="btn btn-light" data-toggle="modal" data-target="#fullHeightModalRight">
+                My Profile
+            </button>
+            <!-- <a class="dropdown-item" >Edit Profile</a> -->
+            <button type="button" class="dropdown-item" class="btn btn-light" data-toggle="modal" data-target="#sideModalTR">
+                Edit Profile
+              </button>
+            <a class="dropdown-item" (click)="logout()" routerLink="/login">Log Out</a>
+            
+          </div>
+        </li>  
+       
+        
+      </ul>
+    </div>
+  </nav>
+
+
+
+<!-- <button type="button" class="btn btn-secondary" (click)="goToCart()" Secondary >Go to cart</button> -->
+<!-- <div class="card" style="width: 18rem;"> -->
+    <div *ngIf="IsDiscount; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+        <div class="hidden">
+         <marquee behavior="" direction="" ><h4><b> <i>{{DiscountStatusName}} is back with <span style="color: rgb(0, 200, 255);"> {{DiscountRate}}%  off</span>  </i></b></h4></marquee> 
+        </div></ng-template>
+        <ng-template #elseBlock> <div class="hidden-false">
+        <marquee behavior="" direction="" ><h4><b> <i>{{DiscountStatusName}} is back with <span style="color: rgb(0, 200, 255);"> {{DiscountRate}}%  off</span>  </i></b></h4></marquee> 
+       </div></ng-template>
+
+
+
+   
+        <div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="card col-sm-3" *ngFor="let data of allProducts ;let i = index">
+                <div class="card-body">
+                    <div >
+                    
+                        <img class="card-img-top"
+                            src="./../../../assets/images/{{data.productImage.substring(50,12)}}"  width="400" height="200"
+                            alt="Card image cap">
+    
+                        <p> Name: {{data?.productName}} </p>
+                        <p> Category: {{data?.category}} </p>
+                        <p> Brand: {{data?.brand}} </p>
+                        <p> Price: {{data?.sellingPrice | currency:'INR':'symbol' }}  </p>
+                        <p class="blink" style="color: rgb(224, 23, 23)">Hurry up ! Only {{data?.stock}} left</p>
+                        <a  class="btn btn-primary"   (click)="Addtocart(data.productId,data.stock)" > Add to Cart</a>
+                        <!-- <span class = "container text-center"> 
+                         <button type="button" (click)="minus()"  style="width:25px"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <input type="text" class="sm" style="width:25px;" ngModel [(ngModel)]="qty" name="quantity" placeholder="Qty"/>
+                      
+                        <button type="button" (click)="plus()"   style="width:25px"><i class="fa fa-plus" aria-hidden="true"></i></button> 
+                        </span>  -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Related Data -->
+<!-- user update -->
+
+  <!-- Side Modal Top Right -->
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sideModalTR">
+    Update User
+  </button> -->
+  
+  <!-- To change the direction of the modal animation change .right class -->
+  <div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+  
+    <!-- Add class .modal-side and then add class .modal-top-right (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-side modal-top-right" role="document">
+  
+  
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">User Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <!-- user update code  -->
+          <form #updateUser="ngForm" (ngSubmit)="onUpdateUser(updateUser.value)">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Firstname</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.firstname"
+                        placeholder="Firstname" name="firstname">
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Lastname</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.lastname"
+                        placeholder="Lastname" name="lastname">
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" [(ngModel)]="getUserbyid.email"
+                        placeholder="Email" name="email">
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">UserType</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.userType"
+                        placeholder="UserType" name="userType">
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">DOB</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.dob"
+                        placeholder="DOB" name="dob">
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Mobile Number</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.mobileNumber" placeholder="Mobile Number"
+                        name="mobileNumber">
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Address</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.address"
+                        placeholder="Address" name="address">
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Zipcode</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.zipcode"
+                        placeholder="Zipcode" name="zipcode">
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Profile Image</label>
+                    <input type="file" class="form-control" [(ngModel)]="getUserbyid.profileImage"
+                        placeholder="Profile Image" name="profileImage">
+                </div>
+
+            </div>
+            <div class="form-row" class="hidden">
+                <div class="form-group col-md-6">
+                    <label>Country</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.country" placeholder="Country"
+                        name="country">
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>State</label>
+                    <input type="text" class="form-control" [(ngModel)]="getUserbyid.state" placeholder="State"
+                        name="state">
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary" >Update</button>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Side Modal Top Right -->
+
+
+
+
+  <!-- password change -->
+  <!-- Button trigger modal -->
+
+  
+  <!-- Central Modal Small -->
+  <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+  
+    <!-- Change class .modal-sm to change the size of the modal -->
+    <div class="modal-dialog modal-sm" role="document">
+  
+  
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">Change Password</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <!-- actual code is start from here -->
+         <form #otpForm="ngForm" (ngSubmit)="ChangePassword()" class=" needs-validation" novalidate >
+            <div class="form-group col-md-8">
+                <label>Password</label>
+                <input type="text" class="form-control" [(ngModel)]="passwordData" id="password" name="password"
+                    placeholder=" Enter Password" required>
+                    <div class="invalid-feedback">
+                        Please Enter a Password.
+                      </div>
+
+            </div> <div class="form-group col-md-8">
+                <label>Retype Password</label>
+                <input type="text" class="form-control" [(ngModel)]="repeatPassword" id="password" name="password"
+                    placeholder=" Enter Password" required>
+                    <div class="invalid-feedback">
+                        Please Enter a Password Again.
+                      </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Conform </button>
+        
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Central Modal Small -->
+
+
+
+  
+
+<!-- Admin / User Profile shows -->
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+
+<!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+<div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title w-100" id="myModalLabel">User Profile</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <!-- here part is start of user detail -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="tab-content ml-1" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                        <div class="image-container">
+                                            <img src="./../../../assets/images/{{getUserbyid.profileImage.substring(50,12)}}" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;"> User Type </label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                               {{getUserbyid.userType}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;"> Name</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                               {{getUserbyid.firstname}}  {{getUserbyid.lastname}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                          <div class="col-sm-3 col-md-2 col-5">
+                                              <label style="font-weight:bold;"> User Name </label>
+                                          </div>
+                                          <div class="col-md-8 col-6">
+                                             {{getUserbyid.username}}
+                                          </div>
+                                      </div>
+                                      <hr />
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;"> DOB </label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                               {{getUserbyid.dob | date}}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;"> Email Id </label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                               {{getUserbyid.email}}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;"> Mobile Number </label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                               {{getUserbyid.mobileNumber}}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;"> Address </label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                               {{getUserbyid.address}}, {{getUserbyid.state}}, {{getUserbyid.zipcode}}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        
+                                       
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+</div>
+<!-- Full Height Modal Right -->
+<!-- <app-cart-customer [qty]="qty"></app-cart-customer> -->

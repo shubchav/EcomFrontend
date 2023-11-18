@@ -1,0 +1,82 @@
+<section class="vh-100" style="background-color: #508bfc;">
+  <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Verify Otp
+</button> -->
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          
+          <div class="card-body p-5 text-center">
+
+            <h3 class="mb-5">Sign in</h3>
+
+
+            <form #LoginUser="ngForm" (ngSubmit)="OnLoginSubmit(LoginUser.value)" class=" needs-validation" novalidate>
+              <div class="form-group">
+                <label>UserName</label>
+                <input type="text" class="form-control" required ngModel id="username" name="username" [ngModel] maxlength="30"
+                  placeholder="Enter UserName">
+                  <div class="invalid-feedback">
+                    Please Enter a UserName.
+                  </div>
+
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="password" name="password" [ngModel] minlength="8" maxlength="20"
+                  placeholder="Password" required>
+                  <div class="invalid-feedback">
+                    Please Enter a Password.
+                  </div>
+              </div>
+
+              <button class="btn btn-primary btn-lg btn-block" type="submit" >Login</button>
+
+            </form>
+
+            <a routerLink="/registration"> Registration?</a>
+
+
+            <a href="" routerLink="/forgetPassword">forgetPassword?</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Otp Verification</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- actual code is start from here -->
+        <form #otpForm="ngForm" (ngSubmit)="OnOtpSubmit()"  >
+          <div class="form-group col-md-4">
+            <label >Enter Your Otp</label>
+            <input type="text" class="form-control" [(ngModel)]="otp"  id="username" name="otp"  placeholder=" Enter otp">
+            
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Conform Otp</button>
+      
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>

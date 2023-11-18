@@ -1,0 +1,1016 @@
+<!-- new nav bar  -->
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <a class="navbar-brand" style="color: whitesmoke">
+        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/logo_white.png"
+            width="30" height="30" alt="logo">
+        ShoppingApp
+    </a>
+    <span style="color: whitesmoke"> <b> Hey! {{getUserbyid.firstname}} {{getUserbyid.lastname}}</b></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-list-4">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="./../../../assets/images/{{getUserbyid.profileImage.substring(50,12)}}"
+                        width="40" height="40" class="rounded-circle">
+                </a>
+                
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <!-- <a class="dropdown-item" href="#">Change Password</a> -->
+                    <button class="dropdown-item" type="button" class="btn btn-light" data-toggle="modal"
+                        data-target="#centralModalSm">
+                        Change Password
+                    </button>
+                    <button type="button"  class="dropdown-item"  class="btn btn-light" data-toggle="modal" data-target="#fullHeightModalRight">
+                        My Profile
+                    </button>
+                    <!-- <a class="dropdown-item" >Edit Profile</a> -->
+
+                    <button type="button" class="dropdown-item" class="btn btn-light" data-toggle="modal"
+                        data-target="#sideModalTR">
+                        Edit Profile
+                    </button>
+                    <a class="dropdown-item" (click)="logout()" routerLink="/login">Log Out</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+
+<p class="h2"> All Products Details</p>
+<!-- Button trigger  for add product modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+      Add Product
+</button>
+
+<!-- Product Add Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Add Product Code -->
+
+
+
+                <form #productAddForm="ngForm" (ngSubmit)="onSubmitProduct(productAddForm.value)" class=" needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputEmail4">Product Name</label>
+                            <input type="text" class="form-control" [ngModel] maxlength="20" placeholder="Product Name"
+                                name="productName" required>
+                                <div class="invalid-feedback">
+                                    Please Enter a Product Name.
+                                  </div>
+                        </div>
+                       
+                    </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputEmail4">Product Code</label>
+                            <input type="text" class="form-control" #productCode="ngModel" pattern="^[a-zA-Z0-9]{6}$"
+                                [ngModel] placeholder="Product Code" name="productCode" required>
+                                <div class="invalid-feedback">
+                                    Please Enter a Product Code.
+                                  </div>
+                            <div [hidden]="!productCode.hasError('pattern')">AlphaNumeric Only 6 digit allow.</div>
+                        </div>
+                        </div>
+                    </div>
+
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Product Image</label>
+                            <input type="file" class="form-control" [ngModel] placeholder="Product Image"
+                                name="productImage" required>
+                                <div class="invalid-feedback" >
+                                    Please select a Product Image.
+                                  </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputEmail4">Category</label>
+                            <input type="text" class="form-control" [ngModel] placeholder="Category" name="category"required>
+                            <div class="invalid-feedback" >
+                                Please Enter a Product Category.
+                              </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputEmail4">Brand</label>
+                            <input type="text" class="form-control" [ngModel] placeholder="Brand" name="brand" required>
+                            <div class="invalid-feedback" >
+                                Please Enter a Product Brand.
+                              </div>                      
+                        </div>
+                    </div>
+                </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+        
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputEmail4">Selling Price</label>
+                            <input type="text" class="form-control" [ngModel] placeholder="Selling Price"
+                                name="sellingPrice" required>
+                                <div class="invalid-feedback" >
+                                    Please Enter a Product Selling Price.
+                                  </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputEmail4">Purchase Price</label>
+                            <input type="text" class="form-control" [ngModel] placeholder="Purchase Price"
+                                name="purchasePrice" required>
+                                <div class="invalid-feedback">
+                                    Please Enter a Product Purchase Price.
+                                  </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+    
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputEmail4">Selling Date</label>
+                            <input type="date" class="form-control" [ngModel] placeholder="Selling Date"
+                                name="sellingDate" required>
+                                <div class="invalid-feedback" >
+                                    Please Enter a Product Selling Date.
+                                  </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputEmail4">Stock</label>
+                            <input type="number" class="form-control" [ngModel] placeholder="Stock" name="stock" required>
+                            <div class="invalid-feedback" >
+                                Please Enter a Product Stock.
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+    
+                            <label for="inputEmail4">Discount Name</label>
+                            <select class="form-control" required  [ngModel]
+                                placeholder="discountId" name="discountId" required>
+                               
+                                <option *ngFor="let offer of getAllDiscountList" value="{{offer.discountId}}"> {{offer.discountName}} </option>
+                                
+                            </select>
+                          
+                            <div class="invalid-feedback" required>
+                                Please select discount.
+                              </div>
+    
+                        </div>
+    
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- here is dicount part -->
+<!-- Button trigger modal -->
+
+  
+  <!-- Discount Add Modal -->
+  <div class="modal fade modal-sm" id="exampleModalCenterDiscount" tabindex="-10" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add Dicount</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form #discountAddForm="ngForm" (ngSubmit)="onSubmitDiacount(discountAddForm.value)" class=" needs-validation" novalidate>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputEmail4">Discount Name</label>
+                        <input type="text" class="form-control" [ngModel] maxlength="30" placeholder="Discount Name"
+                            name="discountName" required>
+                            <div class="invalid-feedback">
+                                Please Enter a Discount Name.
+                              </div>
+                    </div>
+
+                </div>
+
+              
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Discount Rate</label>
+                        <input type="text" class="form-control" [ngModel] placeholder="Discount Rate"
+                            name="discountRate" required>
+                            <div class="invalid-feedback">
+                                Please Enter a Discount Rate.
+                              </div>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+
+                        <label for="inputEmail4">Discount Status</label>
+                        <select class="form-control" required #utype="ngModel" [ngModel]
+                            placeholder="Status" name="status" required>
+                           
+                            <option>Active</option>
+                            <option>
+                                Deactive
+                            </option>
+                        </select>
+                      
+                        <div class="invalid-feedback">
+                            Please select a discount status.
+                          </div>
+
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Add Discount</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- get all data of product -->
+
+<!-- <button type="button" class="btn btn-info btn-sm" (click)="getAllProducts()">Get Products</button> -->
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <!-- <th scope="col">Product Id</th> -->
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Code</th>
+            <th scope="col">Product Image </th>
+            <th scope="col">Category</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Selling Price</th>
+            <th scope="col">Purchase Price</th>
+            <th scope="col">Selling Date</th>
+            <th scope="col">Stocks</th>
+
+            <!-- <th scope="col">User Id</th> -->
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+            <th scope="col">View</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of allProducts   | paginate
+        : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+    let i = index">
+            <td class="hidden">{{data?.productId}}</td>
+            <td>{{data?.productName}}</td>
+            <td>{{data?.productCode}}</td>
+            <td> <img class="card-img-top"
+                            src="./../../../assets/images/{{data.productImage.substring(50,12)}}"  width="40" height="30"
+                            alt="Card image cap"></td>
+            <td>{{data?.category}}</td>
+            <td>{{data?.brand }}</td>
+            <td>{{data?.sellingPrice}}</td>
+            <td>{{data?.purchasePrice}}</td>
+            <td>{{data?.sellingDate | date }}</td>
+            <td>{{data?.stock}}</td>
+
+            <!-- <td>{{data?.userId }}</td> -->
+            <td> <button type="button" class="btn btn-danger" (click)="deleteProduct(data.productId) " >  <i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+            </td>
+           
+            <td> <button type="button" class="btn btn-primary" (click)="getProduct(data.productId)" data-toggle="modal"
+                    data-target="#exampleModal">
+                    <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+
+
+                </button></td>
+                <td><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter"
+                    (click)="getProduct(data.productId)">
+                    <i class="fa fa-eye" aria-hidden="true"></i> View
+                </button>
+            </td>
+        
+             
+        </tr>
+
+    </tbody>
+</table>
+<div class="d-flex justify-content-center">
+    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+</div>
+
+<!-- code for discount table  -------------------------------------------------------------------------------------------------- -->
+
+<p class="h2"> All Discounts</p>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenterDiscount">
+    Add Dicount  
+   </button>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <!-- <th scope="col">Discount Id</th> -->
+            <th scope="col">Discount Name</th>
+            <th scope="col">Discount Rate</th>
+            <th scope="col">Discount Status </th>
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+           
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of getAllDiscountList  
+    let i = index">
+            <td class="hidden">{{data?.discountId}}</td>
+            <td>{{data?.discountName}}</td>
+            <td>{{data?.discountRate}}% </td>
+          
+            <td>{{data?.status}}</td>
+            
+            <!-- <td>{{data?.userId }}</td> -->
+            <td> <button type="button" class="btn btn-danger" (click)="deleteDiscount(data.discountId) "> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+            </td>
+            <td> <button type="button" class="btn btn-primary" (click)="getDiscount(data.discountId)" data-toggle="modal"
+                    data-target="#exampleModalUpdateDiscount">
+                    <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                </button></td>
+          
+
+        </tr>
+
+    </tbody>
+</table>
+
+
+<!-- update discount code  -->
+<div class="modal fade" id="exampleModalUpdateDiscount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Update Discount</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #updatediscount="ngForm" (ngSubmit)="onUpdateDiscount(updatediscount.value)">
+                
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Discount Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="getbyidDiscount.discountName "
+                                placeholder="Discount Name" name="discountName">
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Discount Rate</label>
+                            <input type="text" class="form-control" [(ngModel)]="getbyidDiscount.discountRate"
+                                placeholder="Discount Rate" name="discountRate">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Status</label>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="getbyidDiscount.status"
+                                placeholder="Status" name="status"> -->
+                                <select class="form-control" required #utype="ngModel" [ngModel]
+                            placeholder="Status" name="status">
+                           
+                            <option>Active</option>
+                            <option>
+                                Deactive
+                            </option>
+                        </select> 
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Update product Code -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Update Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #updateProduct="ngForm" (ngSubmit)="onUpdateProduct(updateProduct.value)">
+                    <!-- <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Product Id</label>
+                        <input type="number"  class="form-control" [(ngModel)]="getbyid.productId"
+                            placeholder="Product Id" name="productId">
+                    </div>
+
+                </div> -->
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Product Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="getbyid.productName"
+                                placeholder="Product Name" name="productName">
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Product Code</label>
+                            <input type="text" class="form-control" [(ngModel)]="getbyid.productCode"
+                                placeholder="Product Code" name="productCode">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Product Image</label>
+                            <input type="file" class="form-control" [(ngModel)]="getbyid.productImage"
+                                placeholder="Product Image" name="productImage">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Category</label>
+                            <input type="text" class="form-control" [(ngModel)]="getbyid.category"
+                                placeholder="Category" name="category">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Brand</label>
+                            <input type="text" class="form-control" [(ngModel)]="getbyid.brand" placeholder="Brand"
+                                name="brand">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Selling Price</label>
+                            <input type="text" class="form-control" [(ngModel)]="getbyid.sellingPrice"
+                                placeholder="Selling Price" name="sellingPrice">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Purchase Price</label>
+                            <input type="text" class="form-control" [(ngModel)]="getbyid.purchasePrice"
+                                placeholder="Purchase Price" name="purchasePrice">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Selling Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="getbyid.sellingDate"
+                                placeholder="Selling Date" name="sellingDate">
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Stock</label>
+                            <input type="number" class="form-control" [(ngModel)]="getbyid.stock" placeholder="Stock"
+                                name="stock">
+                        </div>
+
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- viewing a data of  -->
+
+<!-- user product data particular in the form   -->
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Product Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                        <div class="row">
+                            <div class="col-sm-3 col-md-2 col-5">
+                                <label style="font-weight:bold;"> Product Name </label>
+                            </div>
+                            <div class="col-md-8 col-6">
+                               {{getbyid.productName}}
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-3 col-md-2 col-5">
+                                <label style="font-weight:bold;"> Product Code</label>
+                            </div>
+                            <div class="col-md-8 col-6">
+                            {{getbyid.productCode}}
+                              
+                            </div>
+                        </div>
+                        <hr />
+                      
+                       
+                       
+                        <div class="row">
+
+                            <div class="col-sm-3 col-md-2 col-5">
+                                <label style="font-weight:bold;"> Category</label>
+                            </div>
+                            <div class="col-md-8 col-6">
+                                   {{getbyid.category}}
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-sm-3 col-md-2 col-5">
+                                <label style="font-weight:bold;"> Brand </label>
+                            </div>
+                            <div class="col-md-8 col-6">
+                               {{getbyid.brand}}
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-sm-3 col-md-2 col-5">
+                                <label style="font-weight:bold;"> Selling Price </label>
+                            </div>
+                            <div class="col-md-8 col-6">
+                               {{getbyid.sellingPrice}}
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-sm-3 col-md-2 col-5">
+                                <label style="font-weight:bold;">Purchase Price</label>
+                            </div>
+                            <div class="col-md-8 col-6">
+                               {{getbyid.purchasePrice}}
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-sm-3 col-md-2 col-5">
+                                <label style="font-weight:bold;"> Selling Date </label>
+                            </div>
+                            <div class="col-md-8 col-6">
+                              {{getbyid.sellingDate | date}}
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-3 col-md-2 col-5">
+                                <label style="font-weight:bold;">Stock </label>
+                            </div>
+                            <div class="col-md-8 col-6">
+                              {{getbyid.stock }}
+                            </div>
+                        </div>
+                        <hr />
+                    <!-- </form> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  
+ 
+
+
+
+
+<!-- user update -->
+
+<!-- To change the direction of the modal animation change .right class -->
+<div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+
+    <!-- Add class .modal-side and then add class .modal-top-right (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-side modal-top-right" role="document">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">User Details</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- user update code  -->
+                <form #updateUser="ngForm" (ngSubmit)="onUpdateUser(updateUser.value)">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Firstname</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.firstname"
+                                placeholder="Firstname" name="firstname">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Lastname</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.lastname"
+                                placeholder="Lastname" name="lastname">
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" [(ngModel)]="getUserbyid.email" placeholder="Email"
+                                name="email">
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">UserType</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.userType"
+                                placeholder="UserType" name="userType">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">DOB</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.dob" placeholder="DOB"
+                                name="dob">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Mobile Number</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.mobileNumber"
+                                placeholder="Mobile Number" name="mobileNumber">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Address</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.address"
+                                placeholder="Address" name="address">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Zipcode</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.zipcode"
+                                placeholder="Zipcode" name="zipcode">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Profile Image</label>
+                            <input type="file" class="form-control" [(ngModel)]="getUserbyid.profileImage"
+                                placeholder="Profile Image" name="profileImage">
+                        </div>
+
+                    </div>
+                    <div class="form-row" class="hidden"> 
+                        <div class="form-group col-md-6">
+                            <label>Country</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.country"
+                                placeholder="Country" name="country">
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>State</label>
+                            <input type="text" class="form-control" [(ngModel)]="getUserbyid.state" placeholder="State"
+                                name="state">
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Side Modal Top Right -->
+
+
+
+
+<!-- password change code -->
+<!-- Button trigger modal -->
+
+
+<!-- Central Modal Small -->
+<div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+
+    <!-- Change class .modal-sm to change the size of the modal -->
+    <div class="modal-dialog modal-sm" role="document">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Change Password</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- actual code is start from here -->
+                <form #otpForm="ngForm" (ngSubmit)="ChangePassword()" class=" needs-validation" novalidate >
+                    <div class="form-group col-md-8">
+                        <label>Password</label>
+                        <input type="text" class="form-control" [(ngModel)]="passwordData" id="password" name="password"
+                            placeholder=" Enter Password" required>
+                            <div class="invalid-feedback">
+                                Please Enter a Password.
+                              </div>
+
+                    </div> <div class="form-group col-md-8">
+                        <label>Retype Password</label>
+                        <input type="text" class="form-control" [(ngModel)]="repeatPassword" id="password" name="password"
+                            placeholder=" Enter Password" required>
+                            <div class="invalid-feedback">
+                                Please Enter a Password Again.
+                              </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Conform </button>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Central Modal Small -->
+
+
+
+<!-- Admin / User Profile shows -->
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Full Height Modal Right -->
+ <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+
+    <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">User Profile</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <!-- here part is start of user detail -->
+           
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <div class="tab-content ml-1" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                            <div class="image-container">
+                                                <img src="./../../../assets/images/{{getUserbyid.profileImage.substring(50,12)}}" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                                
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;"> User Type </label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                   {{getUserbyid.userType}}
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;"> Name</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                   {{getUserbyid.firstname}}  {{getUserbyid.lastname}}
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;"> User Name </label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                       {{getUserbyid.username}}
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;"> DOB </label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                   {{getUserbyid.dob | date}}
+                                                </div>
+                                            </div>
+                                            <hr />
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;"> Email Id </label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                   {{getUserbyid.email}}
+                                                </div>
+                                            </div>
+                                            <hr />
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;"> Mobile Number </label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                   {{getUserbyid.mobileNumber}}
+                                                </div>
+                                            </div>
+                                            <hr />
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;"> Address </label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                   {{getUserbyid.address}}, {{getUserbyid.state}}{{getUserbyid.zipcode}}
+                                                </div>
+                                            </div>
+                                            <hr />
+    
+                                            
+                                           
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Full Height Modal Right -->
+
+
+
